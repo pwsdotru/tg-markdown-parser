@@ -12,5 +12,6 @@ final class ParserTest extends TestCase
     public function testContructDefault(): void
     {
         $obj = new Parser();
+        $this->assertEquals('', $obj->getText());
     }
 }
