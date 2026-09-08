@@ -14,4 +14,11 @@ final class ParserTest extends TestCase
         $obj = new Parser();
         $this->assertEquals('', $obj->getText());
     }
+
+    public function testGetText(): void
+    {
+        $text = "Test text";
+        $obj = new Parser($text);
+        $this->assertEquals($text, $obj->getText());
+    }
 }
