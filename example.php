@@ -23,7 +23,12 @@ require_once($ent);
 $text = sprintf(__DIR__ . "/examples/example%s.txt", $example);
 
 echo("Reading plain text: " . $text . "n");
-$parser = new Parser(file_get_contents($text), $entities);
+$plain_text = file_get_contents($text);
+if (false === $plain_text) {
+    echo("Can't read file\n");
+    exit(1);
+}
+$parser = new Parser($plain_text, $entities);
 
 echo("Parsing\n");
 $parser->parse();

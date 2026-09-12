@@ -6,11 +6,17 @@ namespace TgMarkdownParser;
 
 class Parser
 {
-    protected $_text;
-    protected $_entities;
-    protected $_parsed;
+    protected string $_text;
+    /** @var array<array<mixed>>  */
+    protected array $_entities;
+    protected string $_parsed;
 
-    public function __construct(string $text = '', ?array $entities = null)
+    /**
+     * Parser constructor.
+     * @param string $text
+     * @param array<array<mixed>> $entities
+     */
+    public function __construct(string $text = '', array $entities = [])
     {
         $this->_text = trim($text);
         $this->_entities = $entities;
