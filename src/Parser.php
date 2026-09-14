@@ -23,6 +23,24 @@ class Parser
         $this->_parsed = '';
     }
 
+    /**
+     * @param array<array<mixed>> $entities
+     * @return $this
+     */
+    public function setEntities(array $entities): self
+    {
+        $this->_entities = $entities;
+        return $this;
+    }
+
+    /**
+     * @return array<array<mixed>>
+     */
+    public function getEntities(): array
+    {
+        return $this->_entities;
+    }
+
     public function getText(): string
     {
         return $this->_text;
@@ -35,7 +53,18 @@ class Parser
 
     public function parse(): bool
     {
-        $this->_parsed = $this->_text;
+        if (0 < count($this->_entities)) {
+            $this->sortEntities();
+        } else {
+            $this->_parsed = $this->_text;
+        }
         return true;
+    }
+
+    protected function sortEntities(): void
+    {
+        usort($this->_entities, function ($a, $b): int {
+            return $a['offset'] <=> $b['offset'];
+        });
     }
 }

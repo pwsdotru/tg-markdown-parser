@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-echo("Start\n");
+echo("Start\n\n");
 
 global $entities;
 
@@ -22,7 +22,7 @@ require_once($ent);
 
 $text = sprintf(__DIR__ . "/examples/example%s.txt", $example);
 
-echo("Reading plain text: " . $text . "n");
+echo("Reading plain text: " . $text . "\n");
 $plain_text = file_get_contents($text);
 if (false === $plain_text) {
     echo("Can't read file\n");
@@ -30,9 +30,9 @@ if (false === $plain_text) {
 }
 $parser = new Parser($plain_text, $entities);
 
-echo("Parsing\n");
+echo("\nParsing\n");
 $parser->parse();
 
-echo("\nDone\nResult:\n---\n");
+echo("\nDone\n\nResult:\n---\n");
 echo($parser->getMarkdown());
 echo("\n---\n");
