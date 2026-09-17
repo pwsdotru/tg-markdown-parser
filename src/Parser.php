@@ -33,14 +33,6 @@ class Parser
         return $this;
     }
 
-    /**
-     * @return array<array<mixed>>
-     */
-    public function getEntities(): array
-    {
-        return $this->_entities;
-    }
-
     public function getText(): string
     {
         return $this->_text;
