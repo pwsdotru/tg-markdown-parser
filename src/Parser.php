@@ -4,12 +4,16 @@ declare(strict_types=1);
 
 namespace TgMarkdownParser;
 
+use TgMarkdownParser\Entity;
+
 class Parser
 {
     protected string $_text;
     /** @var array<array<mixed>>  */
     protected array $_entities;
     protected string $_parsed;
+    /** @var array <int, Entity> */
+    protected array $_tokens;
 
     /**
      * Parser constructor.
@@ -47,10 +51,19 @@ class Parser
     {
         if (0 < count($this->_entities)) {
             $this->sortEntities();
+            $this->buildTokens();
         } else {
             $this->_parsed = $this->_text;
         }
         return true;
+    }
+
+    protected function buildTokens(): void
+    {
+        $this->_tokens = [];
+        foreach ($this->_entities as $e) {
+            $this->_tokens[] = new Entity($e);
+        }
     }
 
     protected function sortEntities(): void
