@@ -21,4 +21,24 @@ class Entity
         $this->_offset = $data['offset'];
         $this->_url = $data['url'];
     }
+
+    public function getOffset(): int
+    {
+        return $this->_offset;
+    }
+
+    public function getLength(): int
+    {
+        return $this->_length;
+    }
+
+    public function getType(): string
+    {
+        return $this->_type;
+    }
+
+    public function getUrl(): string
+    {
+        return $this->_url;
+    }
 }
