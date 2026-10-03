@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace TgMarkdownParser;
 
-class Entity
+class Token
 {
     private int $_offset;
     private int $_length;

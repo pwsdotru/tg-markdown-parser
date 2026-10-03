@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace TgMarkdownParser;
 
-use TgMarkdownParser\Entity;
+use TgMarkdownParser\Token;
 
 class Parser
 {
@@ -12,7 +12,7 @@ class Parser
     /** @var array<array<mixed>>  */
     protected array $_entities;
     protected string $_parsed;
-    /** @var array <int, Entity> */
+    /** @var array <Token> */
     protected array $_tokens;
 
     /**
@@ -42,6 +42,14 @@ class Parser
         return $this->_text;
     }
 
+    /**
+     * @return array<Token>
+     */
+    public function getTokens(): array
+    {
+        return $this->_tokens;
+    }
+
     public function getMarkdown(): string
     {
         return $this->_parsed;
@@ -62,7 +70,7 @@ class Parser
     {
         $this->_tokens = [];
         foreach ($this->_entities as $e) {
-            $this->_tokens[] = new Entity($e);
+            $this->_tokens[] = new Token($e);
         }
     }
 
