@@ -33,6 +33,9 @@ $parser = new Parser($plain_text, $entities);
 echo("\nParsing\n");
 $parser->parse();
 
+echo("\nDebug\n");
+print_r($parser->getTokens());
+
 echo("\nDone\n\nResult:\n---\n");
 echo($parser->getMarkdown());
 echo("\n---\n");

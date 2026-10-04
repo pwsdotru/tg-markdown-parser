@@ -22,6 +22,21 @@ class Token
         $this->_url = $data['url'];
     }
 
+    /**
+     * @param int $start
+     * @param array<string, mixed> $data
+     */
+    public static function buildPlain(int $start, array $data): self
+    {
+        $blank = [
+            'type' => 'plain',
+            'offset' => $start,
+            'length' => (int)$data['offset'] - $start,
+            'url' => '',
+        ];
+        return new self($blank);
+    }
+
     public function getOffset(): int
     {
         return $this->_offset;

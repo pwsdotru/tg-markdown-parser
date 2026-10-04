@@ -24,7 +24,6 @@ class Parser
     {
         $this->_text = trim($text);
         $this->_entities = $entities;
-        $this->_parsed = '';
     }
 
     /**
@@ -57,6 +56,8 @@ class Parser
 
     public function parse(): bool
     {
+        $this->_parsed = '';
+        $this->_tokens = [];
         if (0 < count($this->_entities)) {
             $this->sortEntities();
             $this->buildTokens();
@@ -68,9 +69,14 @@ class Parser
 
     protected function buildTokens(): void
     {
-        $this->_tokens = [];
+        $start = 0;
         foreach ($this->_entities as $e) {
+            if ($start < $e['offset']) {
+                $this->_tokens[] = Token::buildPlain($start, $e);
+                $start += (int)$e['offset'];
+            }
             $this->_tokens[] = new Token($e);
+            $start += (int)$e['length'];
         }
     }
 
