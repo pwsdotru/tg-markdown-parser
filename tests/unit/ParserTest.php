@@ -14,14 +14,44 @@ final class ParserTest extends TestCase
     public function testContructDefault(): void
     {
         $obj = new Parser();
-        $this->assertEquals('', $obj->getText());
+        $this->assertEquals('', $obj->getPlainText());
     }
 
-    public function testGetText(): void
+    public function testGetPlainText(): void
     {
         $text = "Test text";
         $obj = new Parser($text);
-        $this->assertEquals($text, $obj->getText());
+        $this->assertEquals($text, $obj->getPlainText());
+    }
+
+    #[DataProvider('getPlainTextLenProvider')]
+    public function testGetPlainTextLen(string $text, int $length): void
+    {
+        $obj = new Parser($text);
+        $this->assertEquals($length, $obj->getPlainTextLen());
+    }
+
+    /**
+     * @return array<int, array<int, int|string>>
+     */
+    public static function getPlainTextLenProvider(): array
+    {
+        return [
+            ["Test", 4],
+            ["", 0],
+        ];
+    }
+
+    /**
+     * @param array<array<mixed>> $input
+     * @param array<array<mixed>> $expected
+     */
+    #[DataProvider('sortEntitiesProvider')]
+    public function testSortEntities(array $input, array $expected): void
+    {
+        $obj = new Parser("", $input);
+        $this->runProtectedMethod($obj, "sortEntities");
+        $this->assertEquals($expected, $this->getPrivateProperty($obj, "_entities"));
     }
 
     /**
@@ -63,18 +93,6 @@ final class ParserTest extends TestCase
                 ]
             ],
         ];
-    }
-
-    /**
-     * @param array<array<mixed>> $input
-     * @param array<array<mixed>> $expected
-     */
-    #[DataProvider('sortEntitiesProvider')]
-    public function testSortEntities(array $input, array $expected): void
-    {
-        $obj = new Parser("", $input);
-        $this->runProtectedMethod($obj, "sortEntities");
-        $this->assertEquals($expected, $this->getPrivateProperty($obj, "_entities"));
     }
 
     protected function runProtectedMethod(Parser $obj, string $methodName): void

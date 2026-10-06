@@ -24,14 +24,14 @@ class Token
 
     /**
      * @param int $start
-     * @param array<string, mixed> $data
+     * @param int $length
      */
-    public static function buildPlain(int $start, array $data): self
+    public static function buildPlain(int $start, int $length): self
     {
         $blank = [
             'type' => 'plain',
             'offset' => $start,
-            'length' => (int)$data['offset'] - $start,
+            'length' => $length,
             'url' => '',
         ];
         return new self($blank);

@@ -36,9 +36,14 @@ class Parser
         return $this;
     }
 
-    public function getText(): string
+    public function getPlainText(): string
     {
         return $this->_text;
+    }
+
+    public function getPlainTextLen(): int
+    {
+        return strlen($this->_text);
     }
 
     /**
@@ -72,11 +77,15 @@ class Parser
         $start = 0;
         foreach ($this->_entities as $e) {
             if ($start < $e['offset']) {
-                $this->_tokens[] = Token::buildPlain($start, $e);
-                $start += (int)$e['offset'];
+                $this->_tokens[] = Token::buildPlain($start, (int)$e['offset'] - $start);
+                $start = (int)$e['offset'];
             }
             $this->_tokens[] = new Token($e);
             $start += (int)$e['length'];
+        }
+        $length = $this->getPlainTextLen();
+        if ($start < $length) {
+            $this->_tokens[] = Token::buildPlain($start, $length - $start);
         }
     }
 
