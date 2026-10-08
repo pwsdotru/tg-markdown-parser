@@ -5,10 +5,11 @@ declare(strict_types=1);
 namespace TgMarkdownParser;
 
 use TgMarkdownParser\Token;
+use TgMarkdownParser\Text;
 
 class Parser
 {
-    protected string $_text;
+    protected Text $_text;
     /** @var array<array<mixed>>  */
     protected array $_entities;
     protected string $_parsed;
@@ -22,7 +23,7 @@ class Parser
      */
     public function __construct(string $text = '', array $entities = [])
     {
-        $this->_text = trim($text);
+        $this->_text = new Text(trim($text));
         $this->_entities = $entities;
     }
 
@@ -38,12 +39,12 @@ class Parser
 
     public function getPlainText(): string
     {
-        return $this->_text;
+        return $this->_text->get();
     }
 
     public function getPlainTextLen(): int
     {
-        return strlen($this->_text);
+        return $this->_text->length();
     }
 
     /**
@@ -67,7 +68,7 @@ class Parser
             $this->sortEntities();
             $this->buildTokens();
         } else {
-            $this->_parsed = $this->_text;
+            $this->_parsed = $this->_text->get();
         }
         return true;
     }
