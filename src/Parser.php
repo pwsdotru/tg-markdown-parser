@@ -67,12 +67,21 @@ class Parser
         if (0 < count($this->_entities)) {
             $this->sortEntities();
             $this->buildTokens();
+            $this->buildResult();
         } else {
             $this->_parsed = $this->_text->get();
         }
         return true;
     }
 
+    protected function buildResult(): void
+    {
+        $this->_parsed = "";
+        /** @var Token $token */
+        foreach ($this->_tokens as $token) {
+            $this->_parsed .= $this->_text->substr($token->getOffset(), $token->getLength());
+        }
+    }
     protected function buildTokens(): void
     {
         $start = 0;

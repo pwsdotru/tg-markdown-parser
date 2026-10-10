@@ -22,4 +22,9 @@ class Text
     {
         return strlen($this->_text);
     }
+
+    public function substr(int $offset, int $lenthg): string
+    {
+        return substr($this->_text, $offset, $lenthg);
+    }
 }

@@ -54,6 +54,24 @@ final class TextTest extends TestCase
         ];
     }
 
+    #[DataProvider('substrProvider')]
+    public function testSubstr(string $text, string $expected, int $offset, int $length): void
+    {
+        $obj = new Text($text);
+        $this->assertEquals($expected, $obj->substr($offset, $length));
+    }
+
+    /**
+     * @return array<int, array<int, int|string>>
+     */
+    public static function substrProvider(): array
+    {
+        return [
+            ["Test text", "Test", 0, 4],
+            ["Lorem ipsum", "rem ip",2, 6],
+        ];
+    }
+
     /**
      * @return mixed
      */
