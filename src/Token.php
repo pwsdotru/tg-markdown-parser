@@ -11,6 +11,12 @@ class Token
     private string $_type;
     private string $_url;
 
+    private const SIMPLE = [
+        "bold" => "**",
+        "italic" => "*",
+        "code" => "`",
+        "strike" => "--",
+    ];
     /**
      * @param array <string, mixed> $data
      */
@@ -35,6 +41,23 @@ class Token
             'url' => '',
         ];
         return new self($blank);
+    }
+
+    public function buildMarkdown(string $text): string
+    {
+        if ("plain" === $this->_type) {
+            return $text;
+        }
+        if (array_key_exists($this->_type, self::SIMPLE)) {
+            return $this->buildMarkdownSimple($text);
+        }
+        return $text;
+    }
+
+    protected function buildMarkdownSimple(string $text): string
+    {
+        $mark = self::SIMPLE[$this->_type];
+        return $mark . $text . $mark;
     }
 
     public function getOffset(): int
