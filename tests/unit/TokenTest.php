@@ -22,6 +22,78 @@ final class TokenTest extends TestCase
     }
 
     /**
+     * @param array<string, mixed> $data
+     * @param string $plain
+     * @param string $markdown
+     */
+    #[DataProvider('buildMarkdownSimpleProvider')]
+    #[DataProvider('buildMarkdownProvider')]
+    public function testBuildMarkdown(array $data, string $plain, string $markdown): void
+    {
+        $obj = new Token($data);
+        $this->assertEquals($markdown, $this->runProtectedMethod($obj, 'buildMarkdown', $plain));
+    }
+
+    /**
+     * @return array<int, array<int, mixed>>
+     */
+    public static function buildMarkdownProvider(): array
+    {
+        return [
+            [
+                ['offset' => 1, 'length' => 1, 'type' => 'plain', 'url' => ''],
+                'Test text',
+                'Test text'
+            ],
+        ];
+    }
+
+    /**
+     * @param array<string, mixed> $data
+     * @param string $plain
+     * @param string $markdown
+     */
+    #[DataProvider('buildMarkdownSimpleProvider')]
+    public function testBuildMarkdownSimple(array $data, string $plain, string $markdown): void
+    {
+        $obj = new Token($data);
+        $this->assertEquals($markdown, $this->runProtectedMethod($obj, 'buildMarkdownSimple', $plain));
+    }
+
+    /**
+     * @return array<int, array<int, mixed>>
+     */
+    public static function buildMarkdownSimpleProvider(): array
+    {
+        return [
+            [
+                ['offset' => 1, 'length' => 1, 'type' => 'bold', 'url' => ''],
+                'Test text',
+                '**Test text**'
+            ],
+            [
+                ['offset' => 1, 'length' => 1, 'type' => 'italic', 'url' => ''],
+                'Test',
+                '*Test*'
+            ],
+            [
+                ['offset' => 1, 'length' => 1, 'type' => 'code', 'url' => ''],
+                'text',
+                '`text`'
+            ],
+        ];
+    }
+
+    protected function runProtectedMethod(Token $obj, string $methodName, string $arg): string
+    {
+        $reflectionClass = new ReflectionClass($obj);
+        $method = $reflectionClass->getMethod($methodName);
+        $method->setAccessible(true);
+        return $method->invoke($obj, $arg);
+    }
+
+
+    /**
      * @return mixed
      */
     protected function getPrivateProperty(Token $obj, string $propertyName)
