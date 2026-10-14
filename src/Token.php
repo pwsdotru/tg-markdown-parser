@@ -13,9 +13,10 @@ class Token
 
     private const SIMPLE = [
         "bold" => "**",
-        "italic" => "*",
+        "italic" => "__",
         "code" => "`",
-        "strike" => "--",
+        "strike" => "~~",
+        "spoiler" => "||",
     ];
     /**
      * @param array <string, mixed> $data

@@ -74,12 +74,22 @@ final class TokenTest extends TestCase
             [
                 ['offset' => 1, 'length' => 1, 'type' => 'italic', 'url' => ''],
                 'Test',
-                '*Test*'
+                '__Test__'
             ],
             [
                 ['offset' => 1, 'length' => 1, 'type' => 'code', 'url' => ''],
                 'text',
                 '`text`'
+            ],
+            [
+                ['offset' => 1, 'length' => 1, 'type' => 'strike', 'url' => ''],
+                'strike',
+                '~~strike~~'
+            ],
+            [
+                ['offset' => 1, 'length' => 1, 'type' => 'spoiler', 'url' => ''],
+                'hidden under spoiler',
+                '||hidden under spoiler||'
             ],
         ];
     }
