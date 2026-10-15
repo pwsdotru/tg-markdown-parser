@@ -27,6 +27,7 @@ final class TokenTest extends TestCase
      * @param string $markdown
      */
     #[DataProvider('buildMarkdownSimpleProvider')]
+    #[DataProvider('buildMarkdownFunctionsProvider')]
     #[DataProvider('buildMarkdownProvider')]
     public function testBuildMarkdown(array $data, string $plain, string $markdown): void
     {
@@ -90,6 +91,32 @@ final class TokenTest extends TestCase
                 ['offset' => 1, 'length' => 1, 'type' => 'spoiler', 'url' => ''],
                 'hidden under spoiler',
                 '||hidden under spoiler||'
+            ],
+        ];
+    }
+
+    /**
+     * @param array<string, mixed> $data
+     * @param string $plain
+     * @param string $markdown
+     */
+    #[DataProvider('buildMarkdownFunctionsProvider')]
+    public function testBuildMarkdownFunctions(array $data, string $plain, string $markdown): void
+    {
+        $obj = new Token($data);
+        $this->assertEquals($markdown, $this->runProtectedMethod($obj, 'buildMarkdownFunctions', $plain));
+    }
+
+    /**
+     * @return array<int, array<int, mixed>>
+     */
+    public static function buildMarkdownFunctionsProvider(): array
+    {
+        return [
+            [
+                ['offset' => 1, 'length' => 1, 'type' => 'pre', 'url' => ''],
+                'Test text',
+                "```\nTest text\n```\n"
             ],
         ];
     }

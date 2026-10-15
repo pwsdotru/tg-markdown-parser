@@ -18,6 +18,10 @@ class Token
         "strike" => "~~",
         "spoiler" => "||",
     ];
+
+    private const FUNCTIONS = [
+        "pre" => "buildMarkdownPre",
+    ];
     /**
      * @param array <string, mixed> $data
      */
@@ -52,13 +56,10 @@ class Token
         if (array_key_exists($this->_type, self::SIMPLE)) {
             return $this->buildMarkdownSimple($text);
         }
+        if (array_key_exists($this->_type, self::FUNCTIONS)) {
+            return $this->buildMarkdownFunctions($text);
+        }
         return $text;
-    }
-
-    protected function buildMarkdownSimple(string $text): string
-    {
-        $mark = self::SIMPLE[$this->_type];
-        return $mark . $text . $mark;
     }
 
     public function getOffset(): int
@@ -79,5 +80,22 @@ class Token
     public function getUrl(): string
     {
         return $this->_url;
+    }
+
+    protected function buildMarkdownSimple(string $text): string
+    {
+        $mark = self::SIMPLE[$this->_type];
+        return $mark . $text . $mark;
+    }
+
+    protected function buildMarkdownFunctions(string $text): string
+    {
+        $method = self::FUNCTIONS[$this->_type];
+        return $this->$method($text);
+    }
+
+    protected function buildMarkdownPre(string $text): string
+    {
+        return "```\n" . $text . "\n```\n";
     }
 }
