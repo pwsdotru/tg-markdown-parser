@@ -16,9 +16,9 @@ Array
 
     [1] => TelegramBot\Api\Types\MessageEntity Object
         (
-            [type:protected] => underline
-            [offset:protected] => 23
-            [length:protected] => 6
+            [type:protected] => italic
+            [offset:protected] => 32
+            [length:protected] => 3
             [url:protected] =>
             [user:protected] =>
             [language:protected] =>
@@ -28,9 +28,9 @@ Array
     [2] => TelegramBot\Api\Types\MessageEntity Object
         (
             [type:protected] => text_link
-            [offset:protected] => 53
-            [length:protected] => 9
-            [url:protected] => http://test.com/
+            [offset:protected] => 59
+            [length:protected] => 4
+            [url:protected] => http://stie.com/url
             [user:protected] =>
             [language:protected] =>
             [customEmojiId:protected] =>
@@ -46,15 +46,15 @@ $entities = [
         'url' => '',
     ],
     [
-        'type' => 'underline',
-        'offset' => 23,
-        'length' => 6,
+        'type' => 'italic',
+        'offset' => 32,
+        'length' => 3,
         'url' => '',
     ],
     [
     'type' => 'text_link',
-    'offset' => 53,
-    'length' => 9,
-    'url' => 'http://test.com/',
+    'offset' => 59,
+    'length' => 4,
+    'url' => 'http://site.com/url',
     ],
 ];

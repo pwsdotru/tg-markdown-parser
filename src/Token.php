@@ -12,8 +12,8 @@ class Token
     private string $_url;
 
     private const SIMPLE = [
-        "bold" => "**",
-        "italic" => "__",
+        "bold" => "*",
+        "italic" => "_",
         "code" => "`",
         "strike" => "~~",
         "spoiler" => "||",

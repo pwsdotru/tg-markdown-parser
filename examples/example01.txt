@@ -1,7 +1,7 @@
-Simple text with simle stlyes
+Simple text with simple styles
 
 For multi lines 
 
-And With link
+And with link
 
 Done
