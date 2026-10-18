@@ -13,5 +13,3 @@
 * **example00** - Simple plain text without styles
 * **example01** - File with simple styles and link
 * 
-
-

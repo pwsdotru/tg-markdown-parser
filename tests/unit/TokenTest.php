@@ -28,6 +28,7 @@ final class TokenTest extends TestCase
      */
     #[DataProvider('buildMarkdownSimpleProvider')]
     #[DataProvider('buildMarkdownFunctionsProvider')]
+    #[DataProvider('buildMarkdownLinkProvider')]
     #[DataProvider('buildMarkdownProvider')]
     public function testBuildMarkdown(array $data, string $plain, string $markdown): void
     {
@@ -101,6 +102,7 @@ final class TokenTest extends TestCase
      * @param string $markdown
      */
     #[DataProvider('buildMarkdownFunctionsProvider')]
+    #[DataProvider('buildMarkdownLinkProvider')]
     public function testBuildMarkdownFunctions(array $data, string $plain, string $markdown): void
     {
         $obj = new Token($data);
@@ -121,6 +123,32 @@ final class TokenTest extends TestCase
         ];
     }
 
+    /**
+     * @param array<string, mixed> $data
+     * @param string $plain
+     * @param string $markdown
+     */
+    #[DataProvider('buildMarkdownLinkProvider')]
+    public function testBuildMarkdownLink(array $data, string $plain, string $markdown): void
+    {
+        $obj = new Token($data);
+        $this->assertEquals($markdown, $this->runProtectedMethod($obj, 'buildMarkdownLink', $plain));
+    }
+
+    /**
+     * @return array<int, array<int, mixed>>
+     */
+    public static function buildMarkdownLinkProvider(): array
+    {
+        return [
+            [
+                ['offset' => 1, 'length' => 1, 'type' => 'text_link', 'url' => 'http://site.com'],
+                'link',
+                "[link](http://site.com)"
+            ],
+        ];
+    }
+
     protected function runProtectedMethod(Token $obj, string $methodName, string $arg): string
     {
         $reflectionClass = new ReflectionClass($obj);
@@ -128,7 +156,6 @@ final class TokenTest extends TestCase
         $method->setAccessible(true);
         return $method->invoke($obj, $arg);
     }
-
 
     /**
      * @return mixed

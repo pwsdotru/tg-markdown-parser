@@ -21,7 +21,9 @@ class Token
 
     private const FUNCTIONS = [
         "pre" => "buildMarkdownPre",
+        "text_link" => "buildMarkdownLink",
     ];
+
     /**
      * @param array <string, mixed> $data
      */
@@ -97,5 +99,10 @@ class Token
     protected function buildMarkdownPre(string $text): string
     {
         return "```\n" . $text . "\n```\n";
+    }
+
+    protected function buildMarkdownLink(string $text): string
+    {
+        return "[" . $text . "](" . $this->_url . ")";
     }
 }
