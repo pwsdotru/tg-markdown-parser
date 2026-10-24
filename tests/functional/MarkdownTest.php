@@ -14,7 +14,7 @@ final class MarkdownTest extends TestCase
     public function testExamples(string $num): void
     {
         global $entities;
-        $dir = dirname(__DIR__, 2) . '/examples';
+        $dir = dirname(__DIR__, 2) . '/examples/markdown';
         $entities_filename = sprintf('%s/example%s.php', $dir, $num);
         $text_filename = sprintf('%s/example%s.txt', $dir, $num);
         $markdown_filename = sprintf('%s/example%s.md', $dir, $num);

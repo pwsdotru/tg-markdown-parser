@@ -16,11 +16,17 @@ if (array_key_exists(1, $argv)) {
     $example = "00";
 }
 
-$ent = sprintf(__DIR__ . "/examples/example%s.php", $example);
+if (array_key_exists(2, $argv) && "html" === $argv[2]) {
+    $type = "html";
+} else {
+    $type = "markdown";
+}
+
+$ent = sprintf(__DIR__ . "/examples/%s/example%s.php", $type, $example);
 echo("Including file to entities: " . $ent . "\n");
 require_once($ent);
 
-$text = sprintf(__DIR__ . "/examples/example%s.txt", $example);
+$text = sprintf(__DIR__ . "/examples/%s/example%s.txt", $type, $example);
 
 echo("Reading plain text: " . $text . "\n");
 $plain_text = file_get_contents($text);
