@@ -60,28 +60,47 @@ class Parser
         return $this->_parsed;
     }
 
-    public function parse(): bool
+    public function parse(string $type = 'markdown'): bool
     {
         $this->_parsed = '';
         $this->_tokens = [];
         if (0 < count($this->_entities)) {
             $this->sortEntities();
             $this->buildTokens();
-            $this->buildMarkdown();
+            switch ($type) {
+                case 'markdown':
+                    return $this->buildMarkdown();
+                case 'html':
+                    return $this->buildHtml();
+                default:
+                    return false;
+            }
         } else {
             $this->_parsed = $this->_text->get();
         }
         return true;
     }
 
-    protected function buildMarkdown(): void
+    protected function buildMarkdown(): bool
     {
         $this->_parsed = "";
         /** @var Token $token */
         foreach ($this->_tokens as $token) {
             $this->_parsed .= $token->buildMarkdown($this->_text->substr($token->getOffset(), $token->getLength()));
         }
+        return true;
     }
+
+    protected function buildHtml(): bool
+    {
+        $this->_parsed = "";
+        /** @var Token $token */
+        foreach ($this->_tokens as $token) {
+            $this->_parsed .= $token->buildHtml($this->_text->substr($token->getOffset(), $token->getLength()));
+        }
+        return true;
+    }
+
     protected function buildTokens(): void
     {
         $start = 0;

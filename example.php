@@ -37,7 +37,7 @@ if (false === $plain_text) {
 $parser = new Parser($plain_text, $entities);
 
 echo("\nParsing\n");
-$parser->parse();
+$parser->parse($type);
 
 echo("\nDebug\n");
 print_r($parser->getTokens());

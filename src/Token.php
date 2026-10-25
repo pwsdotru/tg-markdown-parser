@@ -19,6 +19,14 @@ class Token
         "spoiler" => "||",
     ];
 
+    private const TAGS = [
+        "bold" => "b",
+        "italic" => "i",
+        "code" => "pre",
+        "strike" => "s",
+        "underline" => "u",
+    ];
+
     private const FUNCTIONS = [
         "pre" => "buildMarkdownPre",
         "text_link" => "buildMarkdownLink",
@@ -64,6 +72,20 @@ class Token
         return $text;
     }
 
+    public function buildHtml(string $text): string
+    {
+        if ("plain" === $this->_type) {
+            return $text;
+        }
+        if (array_key_exists($this->_type, self::TAGS)) {
+            return $this->buildHtmlTags($text);
+        }
+        if (array_key_exists($this->_type, self::FUNCTIONS)) {
+            return $this->buildMarkdownFunctions($text);
+        }
+        return $text;
+    }
+
     public function getOffset(): int
     {
         return $this->_offset;
@@ -88,6 +110,12 @@ class Token
     {
         $mark = self::SIMPLE[$this->_type];
         return $mark . $text . $mark;
+    }
+
+    protected function buildHtmlTags(string $text): string
+    {
+        $tag = self::TAGS[$this->_type];
+        return sprintf("<%s>%s</%s>", $tag, $text, $tag);
     }
 
     protected function buildMarkdownFunctions(string $text): string
