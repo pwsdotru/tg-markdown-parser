@@ -22,7 +22,7 @@ class Token
     private const TAGS = [
         "bold" => "b",
         "italic" => "i",
-        "code" => "pre",
+        "code" => "code",
         "strike" => "s",
         "underline" => "u",
     ];
