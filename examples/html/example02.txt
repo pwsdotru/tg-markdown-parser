@@ -1,0 +1,7 @@
+Test styles
+
+bold
+italic
+strike
+underline
+code

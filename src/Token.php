@@ -15,7 +15,7 @@ class Token
         "bold" => "*",
         "italic" => "_",
         "code" => "`",
-        "strike" => "~~",
+        "strikethrough" => "~~",
         "spoiler" => "||",
     ];
 
@@ -23,7 +23,7 @@ class Token
         "bold" => "b",
         "italic" => "i",
         "code" => "code",
-        "strike" => "s",
+        "strikethrough" => "s",
         "underline" => "u",
     ];
 

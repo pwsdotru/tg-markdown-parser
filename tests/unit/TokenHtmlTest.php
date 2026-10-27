@@ -72,7 +72,7 @@ final class TokenHtmlTest extends TestCase
                 '<code>text</code>'
             ],
             [
-                ['offset' => 1, 'length' => 1, 'type' => 'strike', 'url' => ''],
+                ['offset' => 1, 'length' => 1, 'type' => 'strikethrough', 'url' => ''],
                 'strike',
                 '<s>strike</s>'
             ],

@@ -74,7 +74,7 @@ final class TokenMarkdownTest extends TestCase
                 '`text`'
             ],
             [
-                ['offset' => 1, 'length' => 1, 'type' => 'strike', 'url' => ''],
+                ['offset' => 1, 'length' => 1, 'type' => 'strikethrough', 'url' => ''],
                 'strike',
                 '~~strike~~'
             ],
